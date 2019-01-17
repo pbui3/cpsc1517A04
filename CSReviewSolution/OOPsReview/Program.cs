@@ -10,12 +10,10 @@ namespace OOPsReview
     {
         static void Main(string[] args)
         {
-            Die blah = new Die(6, "black", 4);
-            blah.FaceValue = 10;
-            Console.WriteLine(blah.FaceValue);
-            Console.ReadLine();
-            Die blob = new Die();
-            Console.WriteLine(blob.FaceValue);
+            Turn blah = new Turn();
+            blah.P1Roll();
+            blah.P2Roll();
+            blah.Compare();
             Console.ReadLine();
         }
     }

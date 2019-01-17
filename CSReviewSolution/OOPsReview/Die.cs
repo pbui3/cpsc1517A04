@@ -13,7 +13,6 @@ namespace OOPsReview
         //Usually private
         private int _Sides;
         private string _Color;
-        private List<int> listOfValues;
 
         //Properties
         //Responsible for assigning and retrieving data to/from their associated data member
