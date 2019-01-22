@@ -13,7 +13,6 @@ namespace OOPsReview
         //Usually private
         private int _Sides;
         private string _Color;
-        private List<int> listOfValues;
 
         //Properties
         //Responsible for assigning and retrieving data to/from their associated data member
@@ -42,7 +41,7 @@ namespace OOPsReview
                 }
                 else
                 {
-                    throw new Exception("Die cannot be " + value.ToString() + "sided");
+                    throw new Exception("Die cannot be " + value.ToString() + " sided");
                 }
             }
         }
@@ -93,7 +92,7 @@ namespace OOPsReview
 
         //Greedy Constructor
         //Will allow the user of a class to pass in a set of values which will be used to set the values of data members
-        public Die(int sides, string color, int faceValue)
+        public Die(int sides, string color)
         {
             Sides = sides;
             Color = color;
