@@ -1,0 +1,29 @@
+﻿<!--Using Bootstrap to format and handle the menu-->
+<!--Menu area-->
+<div class="navbar navbar-default navbar-fixed-top">
+    <!--Branding area of the menu-->
+    <div class="navbar-header">
+        <a class="navbar-brand" style="font-size: x-large">
+            <strong>CPSC1517 - Razor</strong>
+        </a>
+    </div>
+    <!--Menu root area-->
+    <ul class="nav navbar-nav">
+        <!--Root menu item-->
+        <li><a href="@Href("~/Default.cshtml")">Home</a></li>
+        <!--Drop down submenu-->
+        <li class="dropdown">
+            <!--dropdown menu item toggle-->
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Controls <b class="caret"></b></a>
+            <!--Code the dropdown submenu items-->
+            <ul class="dropdown-menu">
+                <li><a href="@Href("~/Controls/TextBoxes.cshtml")">Text boxes</a></li>
+                <li><a href="@Href("~/Controls/RadialButtons.cshtml")">Radial buttons</a></li>
+                <li><a href="@Href("~/Controls/CheckBoxes.cshtml")">Check boxes</a></li>
+                <li><a href="@Href("~/Controls/DropDown.cshtml")">Dropdown</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
