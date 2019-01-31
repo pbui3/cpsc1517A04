@@ -1,0 +1,80 @@
+﻿@{//These pages process logically form top to bottom
+    Layout = "~/_Layout.cshtml";
+    Page.Title = "Text Boxes";
+    //gather the data from the form
+    //all data will come in as strings
+    var leftSide = Request.Form["left-input"];
+    var rightSide = Request.Form["right-input"];
+    var theButton = Request.Form["form-button"]; //button has a value parameter
+}
+@section head{
+
+    <link href="~/Content/MyCustomStyles.css" rel="stylesheet" />
+}
+@section banner{
+    <h1> Text Boxes for Razor Form Samples</h1>
+}
+<!--Content body-->
+@if (IsPost)
+{
+    <p>this form is in post back</p>
+    if (theButton.Equals("reset"))
+    {
+        leftSide = "";
+        rightSide = "";
+    }
+    else
+    {
+        //Validation of data coming in
+        if (string.IsNullOrEmpty(leftSide) || string.IsNullOrEmpty(rightSide))
+        {
+            <p>Enter data in both input fields</p>
+        }
+        else
+        {
+            if (theButton.Equals("left-input"))
+            {
+                <p>Hello, your name is @leftSide</p>
+            }
+            else
+            {
+                <p>Your favorite color is @rightSide</p>
+            }
+        }
+    }
+}
+else
+{
+    <p>this form is in initialization</p>
+}
+<form id="the-form" method="post">
+    <div class="row">
+        <div class="col-md-6">
+            <label for="left-input">Your Name:</label>
+            <input type="text" id="left-input" name="left-input" placeholder="enter your name" value="@leftSide" />
+            <button type="submit" id="form-button" name="form-button" class="btn" value="left-input">
+                Press Left
+            </button>
+        </div>
+        <div class="col-md-6">
+            <label for="right-input">Your Favorite Color:</label>
+            <input type="text" id="right-input" name="right-input" placeholder="enter your color" value="@rightSide" />
+            <button type="submit" id="form-button" name="form-button" class="btn" value="right-input">
+                Press Right
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-offset-5">
+            <button type="submit" id="form-button" name="form-button" class="btn" value="reset">
+                Reset
+            </button>
+        </div>
+    </div>
+</form>
+
+@section footer{
+    &copy; CPSC1517 NAIT, all rights reserved
+}
+
+
