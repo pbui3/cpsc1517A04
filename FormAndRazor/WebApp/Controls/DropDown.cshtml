@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/_Layout.cshtml";
     Page.Title = "Dropdown";
+    var selection = Request.Form["page-selection"];
 }
 @section head{
 
@@ -9,7 +10,54 @@
 @section banner{
     <h1> Dropdown for Razor Form Samples</h1>
 }
-<p>Hello World!</p>
+
+@if (IsPost)
+{
+    //Validation will be done inside the switch, if a page was not selected then the switch default will handle the Select...
+    switch (selection)
+    {
+        case "TextBoxes":
+            {
+                //The object class for data going out is Response
+                //The method to direct yourself to another page is .Redirect(page)
+                //We will use relative addressing to get to another page
+                Response.Redirect("TextBoxes.cshtml");
+                break;
+            }
+        case "RadialButtons":
+            {
+                Response.Redirect("RadialButtons.cshtml");
+                break;
+            }
+        case "CheckBoxes":
+            {
+                Response.Redirect("CheckBoxes.cshtml");
+                break;
+            }
+        default:
+            {
+                <p><span style="color:firebrick"><strong>You must make a selection</strong></span></p>
+                break;
+            }
+    }
+}
+
+<form id="the-form" method="post">
+    <div class="row">
+        <div class="col-md-offset-4">
+            <label for="page-selection">Select control example:</label>
+            &nbsp;&nbsp;
+            <select id="page-selection" name="page-selection">
+                <option value="">Select...</option>
+                <option value="TextBoxes">Text Boxes</option>
+                <option value="RadialButton">Radial Buttons</option>
+                <option value="CheckBoxes">Check Boxes</option>
+            </select>
+            &nbsp;&nbsp;
+            <button type="submit" id="form-button" name="form-button" value="Submit" class="btn btn-primary">Go To...</button>
+        </div>
+    </div>
+</form>
 @section footer{
     &copy; CPSC1517 NAIT, all rights reserved
 }

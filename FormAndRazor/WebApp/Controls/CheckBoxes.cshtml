@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "~/_Layout.cshtml";
     Page.Title = "Check Boxes";
+    var game = "";
 }
 @section head{
 
@@ -9,8 +10,62 @@
 @section banner{
     <h1> Check Boxes for Razor Form Samples</h1>
 }
-<p>Hello World!</p>
+@if (IsPost)
+{
+    //Delaying the capture of the incoming data until there is a post back
+    var theButton = Request.Form["form-button"];
+    game = Request.Form["game-group"];
+
+    if (theButton.Equals("Clear"))
+    {
+        game = "";
+    }
+    else
+    {
+        //Submit
+        //Validation
+        if (string.IsNullOrEmpty(game))
+        {
+            game = "";
+            <p><span style="color:firebrick"><strong>I see you do not like to play games</strong></span></p>
+        }
+        else
+        {
+            //The checkbox group comes in as a comma separated value (CSV) string
+            // The CSV will be divided into an array of strings
+            //We will use the .Split(delimitor) method
+            <p>
+                I see you like playing on the:
+                <ul>
+                    @foreach (var platform in game.Split(','))
+                    {
+                        <li>@platform</li>
+                    }
+                </ul>
+            </p>
+        }
+    }
+}
+<form id="the-form" method="post">
+    <div class="col-md-offset-2">
+        <label for="language-group">
+            Choose your prefered gaming platform
+        </label><br />
+        <input type="checkbox" id="game-group" name="game-group" value="PS4" @(Array.IndexOf(game.Split(','), "PS4") >= 0 ? "checked" : "") />&nbsp;&nbsp;PlayStation 4<br />
+        <input type="checkbox" id="game-group" name="game-group" value="PC" @(Array.IndexOf(game.Split(','), "PC") >= 0 ? "checked" : "") />&nbsp;&nbsp;PC<br />
+        <input type="checkbox" id="game-group" name="game-group" value="Switch" @(Array.IndexOf(game.Split(','), "Switch") >= 0 ? "checked" : "") />&nbsp;&nbsp;Switch<br />
+        <input type="checkbox" id="game-group" name="game-group" value="Mobile" @(Array.IndexOf(game.Split(','), "Mobile") >= 0 ? "checked" : "") />&nbsp;&nbsp;Mobile<br />
+        <input type="checkbox" id="game-group" name="game-group" value="Xbox" @(Array.IndexOf(game.Split(','), "Xbox") >= 0 ? "checked" : "") />&nbsp;&nbsp;Xbox<br /><br />
+
+        <button type="submit" id="form-button" name="form-button" value="Submit" class="btn btn-primary">Submit</button>
+        &nbsp;&nbsp;
+        <button type="submit" id="form-button" name="form-button" value="Clear" class="btn">Reset</button>
+    </div>
+</form>
+
 @section footer{
     &copy; CPSC1517 NAIT, all rights reserved
 }
+
+
 
