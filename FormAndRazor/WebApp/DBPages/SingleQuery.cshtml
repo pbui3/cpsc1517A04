@@ -2,63 +2,109 @@
     Layout = "~/_Layout.cshtml";
     Page.Title = "Single Query";
 
-    var searchArg = Request.Form["searchArg"];
-    var regionId = "";
+    var searcharg = Request.Form["searcharg"];
+    var regionid = "";
     var description = "";
+    var thebutton = Request.Form["formbutton"];
 
-    //First pass of the page, searchArg will be null, but for the db Query, it need to be a number
-    if (string.IsNullOrEmpty(searchArg))
+    //remember the 1st pass of the page, searcharg will
+    //   be null BUT for the db query it needs to be a
+    //   number
+    if (string.IsNullOrEmpty(searcharg))
     {
-        searchArg = "0";
+        searcharg = "0";
     }
 
-    //Open a connection to the database
-    //Use the connection string name attribute value
+    //open a connection to the database
+    //use the connection string name attribute value
     var db = Database.Open("NWDB");
 
-    //Create your sql command that you wish to execute
-    //A placeholder called @n will be used for the query arguement
-    //Query command can be coded on multiple physical lines
-    var queryCommand = "SELECT RegionId, RegionDescription "
-        + "FROM Region "
-        + "WHERE RegionId = @0";
+    //create your sql command that you wish to execute
+    //a placeholder @n will be use for the query argument
+    //query command can be coded on mulitple physical lines
+    var querycommand = "SELECT RegionID, RegionDescription "
+             + "FROM Region "
+             + "WHERE RegionID = @0";
 
-    //Execute the sql query command against the database
-    //.QuerySingle() used when you expect a single record to be returned
-    //.Query() used when you expect 0, 1 or more record to be returned
-    //.QueryValue() used when you expect a single value (not record) to be returned
-    var results = db.QuerySingle(queryCommand, searchArg);
+    //execute the sql query command against the database
+    //.QuerySingle()  used when you expect a single record to be returned
+    //.Query() used when you expect 0, 1 or more records to be returned
+    //.QuesryValue() used when you expect a single value (not record) to be returned
+    var results = db.QuerySingle(querycommand, searcharg);
 }
-
-@section head{
+    @section head{
 
     <link href="~/Content/MyCustomStyles.css" rel="stylesheet" />
 }
+
 @section banner{
-    <h1>Database: Single Query</h1>
+    <h1>Database: Single query</h1>
 }
 
-<form id="the-form" method="post">
+@if(IsPost)
+{
+    if (thebutton.Equals("clear"))
+    {
+        regionid = "";
+        description = "";
+        searcharg = "0";
+    }
+    else
+    {
+        //.QuerySingle() uses == null to test for no results
+        //.Query() uses .Count() == 0 to test for no results
+        if (results == null)
+        {
+            //removing old results
+            regionid = "";
+            description = "";
+            <p><span style="color:blue">There is no region for the supplied region id.</span></p>
+        }
+        else
+        {
+            //there is a record to display
+            //How does one access the data on the record?
+
+            //There are two ways to access a column on your record
+            //a) using an index for the column eg.  xxxx[index] 
+            //b) using the column title property name eg. xxxx.columnname
+
+            //you must be concerned with non string datatypes being returns
+            //     as part of your results.
+            //output fields expect strings.
+            //var varaibles obtain their datatype when first used.
+            regionid = results[0].ToString();
+            description = results.RegionDescription;
+        }
+    }              
+}
+
+<form id="theform" method="post">
     <div class="row">
         <div class="col-md-4">
-            <div class="col-md-6">
-                <label for="search-arg">Enter region ID:</label>
-                <input type="text" id="search-arg" name="search-arg" placeholder="enter region ID" value="@searchArg" />
-                <button type="submit" id="form-button" name="form-button" class="btn" value="search">
-                    Search
-                </button>
-                &nbsp;&nbsp;
-                <button type="submit" id="form-button" name="form-button" class="btn" value="Clear">
-                    Clear
-                </button>
-            </div>
+            <label for="searcharg">Enter Region ID:</label>
+            <input type="number" id="searcharg" name="searcharg"
+                   placeholder="enter region id" step="1" min="0" 
+                   value="@searcharg" />
+            <br/>
+            <button type="submit" id="formbutton" name="formbutton"
+                    class="btn btn-primary" value="search">
+                Search
+            </button>
+            &nbsp;&nbsp;
+            <button type="submit" id="formbutton" name="formbutton"
+                    class="btn" value="clear">
+                Clear
+            </button>
         </div>
         <div class="col-md-8">
-            <label for="region-id">Region ID:</label>
-            <input type="text" id="region-id" name="region-id" placeholder="enter region ID" value="@regionId" />
+            <label for="regionid">Region ID:</label>
+            <input type="text" id="regionid" name="regionid"
+                   value="@regionid" />
             <br />
             <label for="description">Region Name:</label>
-            <input type="text" id="description" name="description" placeholder="enter region description" value="@description" />
+            <input type="text" id="description" name="description"
+                   value="@description" />
         </div>
     </div>
 </form>

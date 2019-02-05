@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{06FA9EA3-2A2E-4F9B-A301-2EF76A8FFCEB}</ProjectGuid>
+    <ProjectGuid>{6EEE8890-E55F-4AE6-832B-474C9DD06941}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -110,7 +110,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Controls\TextBoxes.cshtml" />
-    <Content Include="Controls\RadialButtons.cshtml" />
+    <Content Include="Controls\RadioButtons.cshtml" />
     <Content Include="Controls\CheckBoxes.cshtml" />
     <Content Include="Controls\DropDown.cshtml" />
     <Content Include="DBPages\SingleQuery.cshtml" />
@@ -120,7 +120,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Web.config" />
-    <Content Include="_Nav.cshtml" />
+    <Content Include="_Menu.cshtml" />
     <Content Include="WebConnectionStrings.config" />
   </ItemGroup>
   <ItemGroup>
@@ -152,9 +152,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>50339</DevelopmentServerPort>
+          <DevelopmentServerPort>52936</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50339/</IISUrl>
+          <IISUrl>http://localhost:52936/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
