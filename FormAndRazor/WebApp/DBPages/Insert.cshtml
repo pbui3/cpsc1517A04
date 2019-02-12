@@ -17,6 +17,20 @@
     var selectedcategory = "";
     var discontinued = "";
 
+    var db = Database.Open("NWDB");
+    var catCommand = "SELECT CategoryID, CategoryName "
+                       + "FROM Categories "
+                       + "ORDER BY CategoryName";
+    //execute using .Query() fkey lookup 1:m
+    var catResults = db.Query(catCommand);
+
+    var supCommand = "SELECT SupplierID, CompanyName "
+                   + "FROM Suppliers "
+                   + "ORDER BY CompanyName";
+    //execute using .Query() fkey lookup 1:m
+    var supResults = db.Query(supCommand);
+
+
 }
 @section head{
     <link href="~/Content/MyCustomStyles.css" rel="stylesheet" />
@@ -61,8 +75,6 @@
         //user friendly error handling
         try
         {
-            //connect to db
-            var db = Database.Open("NWDB");
             //create sql insert command
             //note the number and position of placeholders for each supplied field
             var insertcommand = "INSERT INTO PRODUCTS (ProductName, SupplierID, CategoryID, QuantityPerUnit, "
@@ -75,8 +87,8 @@
             //ternary operator used for nullable fields
 
             db.Execute(insertcommand, productname,
-                string.IsNullOrEmpty(selectedsupplier) ? null : selectedsupplier,
-                string.IsNullOrEmpty(selectedcategory) ? null : selectedcategory,
+                selectedsupplier.Equals("0")? null : selectedsupplier,
+                selectedcategory.Equals("0") ? null : selectedcategory,
                 string.IsNullOrEmpty(quantityperunit) ? null : quantityperunit,
                 string.IsNullOrEmpty(unitprice) ? null : unitprice,
                 string.IsNullOrEmpty(unitsinstock) ? null : unitsinstock,
@@ -126,21 +138,58 @@
             <!-- the title attribute creates the tooltip for the control-->
             <input name="ProductName" id="ProductName" type="text" value="@productname"
                    title="Product Name." /><br />
-            <input name="SupplierID" id="SupplierID" type="number" value="@selectedsupplier" /><br />
-            <input name="CategoryID" id="CategoryID" type="number" value="@selectedcategory" /><br />
+            <select id="SupplierID" name="SupplierID">
+                <option value="0">select ...</option>
+                <!--  loop code here-->
+                @foreach (var supitem in supResults)
+                {
+                    if (selectedsupplier == supitem[0].ToString())
+                    {
+                        <option value="@supitem.SupplierID" selected>@supitem[1]</option>
+                    }
+                    else
+                    {
+                        <option value="@supitem.SupplierID">@supitem[1]</option>
+                    }
+                }
+            </select>
+            <br />
+            <select id="CategoryID" name="CategoryID">
+                <option value="0">select ...</option>
+                <!--  loop code here-->
+                @foreach (var catitem in catResults)
+                {
+                    if (selectedcategory == catitem[0].ToString())
+                    {
+                        <option value="@catitem.CategoryID" selected>@catitem[1]</option>
+                    }
+                    else
+                    {
+                        <option value="@catitem.CategoryID">@catitem[1]</option>
+                    }
+                }
+            </select>
+            <br />
             <input name="QuantityPerUnit" id="QuantityPerUnit" type="text"
-                   value="@quantityperunit" /><br />
+                   value="@quantityperunit" />
+            <br />
             <input name="UnitPrice" id="UnitPrice" type="number" value="@unitprice"
-                   step="0.01" min="0.00" /><br />
+                   step="0.01" min="0.00" />
+            <br />
             <input name="UnitsInStock" id="UnitsInStock" type="number" value="@unitsinstock"
-                   step="1" min="0" title="Quantity on Hand." /><br />
+                   step="1" min="0" title="Quantity on Hand." />
+            <br />
             <input name="UnitsOnOrder" id="UnitsOnOrder" type="text" value="@unitsonorder"
-                   step="1" min="0" title="Quantity on Order." /><br />
+                   step="1" min="0" title="Quantity on Order." />
+            <br />
             <input name="ReorderLevel" id="ReorderLevel" type="text" value="@reorderlevel"
-                   step="1" min="0" title="Reorder Level." /><br />
+                   step="1" min="0" title="Reorder Level." />
+            <br />
             <input name="Discontinued" id="Discontinued" type="checkbox"
                    title="Product is discontinued if checked."
-                   @(string.IsNullOrEmpty(discontinued) ? "" : "checked") /><br /><br />
+                   @(string.IsNullOrEmpty(discontinued) ? "" : "checked") />
+            <br />
+            <br />
         </div>
     </div>
     <div>
