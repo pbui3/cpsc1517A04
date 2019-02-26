@@ -5,6 +5,7 @@
     Layout = "~/_Layout.cshtml";
 
 
+
     var pid = Request.QueryString["pid"];
     if (pid.IsEmpty())
     {
@@ -66,6 +67,7 @@
 {
     if (thebutton.Equals("cancel"))
     {
+<<<<<<< HEAD
         // You could redirect user to search page
         // Reset data to current record on database
         // Empty data field
@@ -74,12 +76,25 @@
             <span style="color:cadetblue">
                 <strong>
                     Action cancelled, look up another product on the <a href="~/DBPages/Productsearch.cshtml">Search Page</a>
+=======
+        //a) could redirect the user to the search page via message
+        //b) reset the data to the current record on the database
+        //c) empty the data fields
+        // you should in all cases blank out the primary key field
+        productid = "";
+        <p class="col-sm-12 text-center">
+            <span style="color:cadetblue">
+                <strong>
+                    Action cancelled. Look up another product on the
+                    <a href="~/DBPages/ProductSearch.cshtml">search page</a>.
+>>>>>>> c3ccfba13a9fb1a377c3a70e35a700bc310822f1
                 </strong>
             </span>
         </p>
     }
     else if (thebutton.Equals("delete"))
     {
+<<<<<<< HEAD
         // Check to see if there is a PK to work with
         if (productid == "")
         {
@@ -88,6 +103,16 @@
                     <strong>
                         Product was not found. No product removed
                         Action cancelled, look up another product on the <a href="~/DBPages/Productsearch.cshtml">Search Page</a>
+=======
+        //check to see if there is a primary key to work with
+        if (productid == "")
+        {
+            <p class="col-sm-12 text-center">
+                <span style="color:firebrick">
+                    <strong>
+                        Look up another product on the
+                        <a href="~/DBPages/ProductSearch.cshtml">search page</a>.
+>>>>>>> c3ccfba13a9fb1a377c3a70e35a700bc310822f1
                     </strong>
                 </span>
             </p>
@@ -96,21 +121,58 @@
         {
             try
             {
+<<<<<<< HEAD
                 var deleteCommand = "DELETE Products WHERE ProductID = @0";
                 var rowsaffected = db.Execute(deleteCommand, productid);
                 if (rowsaffected == 0)
                 {
                     <p><span style="color:cadetblue">Product was not found. No product removed</span></p>
+=======
+                var deletecommand = "DELETE Products WHERE ProductID = @0";
+                var rowsaffected = db.Execute(deletecommand, productid);
+                if (rowsaffected == 0)
+                {
+                    <p>
+                        <span style="color:cadetblue">
+                            Product was not found. Product not removed.
+                            Look up another product on the
+                            <a href="~/DBPages/ProductSearch.cshtml">search   page</a>
+                        </span>
+                    </p>
+                    productid = "";
+                    //optionally you could delete the data from the
+                    //   rest of the fields.
+                }
+                else
+                {
+                    <p>
+                        <span style="color:green">
+                            Product was removed.
+                            Look up another product on the
+                            <a href="~/DBPages/ProductSearch.cshtml">search   page</a>
+                        </span>
+                    </p>
+                    productid = "";
+>>>>>>> c3ccfba13a9fb1a377c3a70e35a700bc310822f1
                 }
             }
             catch (Exception ex)
             {
+<<<<<<< HEAD
                 <p><span style="color:firebrick">@ex.Message</span></p>
+=======
+                <p>
+                    <span style="color:firebrick">
+                        @ex.Message
+                    </span>
+                </p>
+>>>>>>> c3ccfba13a9fb1a377c3a70e35a700bc310822f1
             }
         }
     }
     else
     {
+<<<<<<< HEAD
         // Check to see if there is a PK to work with
         if (productid == "")
         {
@@ -119,6 +181,16 @@
                     <strong>
                         Product was not found. No product updated
                         Action cancelled, look up another product on the <a href="~/DBPages/Productsearch.cshtml">Search Page</a>
+=======
+        //check to see if there is a primary key to work with
+        if (productid == "")
+        {
+            <p class="col-sm-12 text-center">
+                <span style="color:firebrick">
+                    <strong>
+                        Look up another product on the
+                        <a href="~/DBPages/ProductSearch.cshtml">search page</a>.
+>>>>>>> c3ccfba13a9fb1a377c3a70e35a700bc310822f1
                     </strong>
                 </span>
             </p>
@@ -127,6 +199,7 @@
         {
             try
             {
+<<<<<<< HEAD
                 var updateCommand = "UPDATE Products SET "
                                   + "ProductName = @0, "
                                   + "SupplierID = @1, "
@@ -151,16 +224,69 @@
                 if (rowsaffected == 0)
                 {
                     <p><span style="color:cadetblue">Product was not found. No product updated</span></p>
+=======
+                var updatecommand = "UPDATE Products SET "
+                    + "ProductName = @0, "
+                    + "SupplierID = @1, "
+                    + "CategoryID = @2, "
+                    + "QuantityPerUnit = @3, "
+                    + "UnitPrice = @4, "
+                    + "UnitsInStock = @5, "
+                    + "UnitsOnOrder = @6, "
+                    + "ReorderLevel = @7, "
+                    + "Discontinued = @8 "
+                    + "WHERE ProductID = @9";
+                var rowsaffected = db.Execute(updatecommand,
+                    productname,
+                    supplierid.Equals("0") ? null : supplierid,
+                    categoryid.Equals("0") ? null : categoryid,
+                    string.IsNullOrEmpty(quantityperunit) ? null : quantityperunit,
+                    string.IsNullOrEmpty(unitprice) ? null : unitprice,
+                    string.IsNullOrEmpty(unitsinstock) ? null : unitsinstock,
+                    string.IsNullOrEmpty(unitsonorder) ? null : unitsonorder,
+                    string.IsNullOrEmpty(reorderlevel) ? null : reorderlevel,
+                    discontinued, productid);
+
+                if (rowsaffected == 0)
+                {
+                    <p>
+                        <span style="color:cadetblue">
+                            Product was not found. Product not updated.
+                            Look up another product on the
+                            <a href="~/DBPages/ProductSearch.cshtml">search   page</a>
+                        </span>
+                    </p>
+                    productid = "";
+                    //optionally you could delete the data from the
+                    //   rest of the fields.
+                }
+                else
+                {
+                    <p>
+                        <span style="color:green">
+                            Product was updated.
+                        </span>
+                    </p>
+>>>>>>> c3ccfba13a9fb1a377c3a70e35a700bc310822f1
                 }
             }
             catch (Exception ex)
             {
+<<<<<<< HEAD
                 <p><span style="color:firebrick">@ex.Message</span></p>
+=======
+                <p>
+                    <span style="color:firebrick">
+                        @ex.Message
+                    </span>
+                </p>
+>>>>>>> c3ccfba13a9fb1a377c3a70e35a700bc310822f1
             }
         }
     }
 }
-else //for IsPost
+
+else //for IsPost during initialization
 {
     //if this page is being shown for the "first time"
     //the page accesses the database for the current record
@@ -249,6 +375,18 @@ else //for IsPost
             <button type="submit" name="theButton" id="theDelete" class="btn btn-primary" value="delete">Delete</button>&nbsp;&nbsp;&nbsp;
             <button type="submit" name="theButton" id="theCancel" class="btn btn-primary" value="cancel">Cancel</button>
         </div>
+<<<<<<< HEAD
 
     </form>
 </div>
+=======
+        @*This javascript will allow for a confirmation dialogue to appear when a particular button is pressed (theDelete)*@
+        <script type="text/javascript">
+            document.getElementById("theDelete").onclick = ConfirmDelete;
+            function ConfirmDelete() {
+                return confirm("Are you sure you wish to remove @productname?");
+            }
+        </script>
+    </form>
+</div>
+>>>>>>> c3ccfba13a9fb1a377c3a70e35a700bc310822f1
