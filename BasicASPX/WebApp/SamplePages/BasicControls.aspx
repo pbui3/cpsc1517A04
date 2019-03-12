@@ -1,20 +1,21 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BasicControls.aspx.cs" Inherits="WebApp.SamplePages.BasicControls" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-    <table align="center" style="width: 80%; background-color: #FFFFFF">
+    
+    <table align="center" style="width: 80%">
         <tr>
-            <td align="right" style="height: 22px">Enter your choice (1-4):</td>
-            <td style="height: 22px">
-                <asp:TextBox ID="TextBoxNumericChoice" runat="server"></asp:TextBox>&nbsp;&nbsp;
-                <asp:Button ID="SubmitButton" runat="server" Text="Submit Choice" OnClick="SubmitButton_Click" />
+            <td align="right">Enter your choice (1 - 4):</td>
+            <td>
+                <asp:TextBox ID="TextBoxNumericChoice" runat="server" ></asp:TextBox> &nbsp;&nbsp;
+                <asp:Button ID="SubMitButton" runat="server" Text="Submit Choice" OnClick="SubMitButton_Click" />
             </td>
         </tr>
         <tr>
             <td align="right">
-                <asp:Label ID="Label1" runat="server" Text="Choice (radio button list):" BackColor="White" Font-Bold="True" Font-Size="Medium" ForeColor="#FF0066"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Text="Choice (RadioButtonList):" ForeColor="#33CC33" Font-Bold="True" Font-Size="Medium"></asp:Label>
             </td>
             <td>
-                <asp:RadioButtonList ID="RadioButtonListChoice" runat="server" RepeatDirection="Horizontal" RepeatLayout="Flow">
+                <asp:RadioButtonList ID="RadioButtonListChoice" runat="server" RepeatDirection="Horizontal" 
+                     RepeatLayout="Flow">
                     <asp:ListItem Value="1">COMP1008</asp:ListItem>
                     <asp:ListItem Value="2">CPSC1517</asp:ListItem>
                     <asp:ListItem Value="4">DMIT1508</asp:ListItem>
@@ -24,32 +25,32 @@
         </tr>
         <tr>
             <td align="right">
-                <asp:Literal ID="Literal1" runat="server" Text="Programming Software (via checkbox):"></asp:Literal>
+                <asp:Literal ID="Literal1" runat="server" 
+                    text="Progamming Software (via checkbox):"></asp:Literal>
             </td>
             <td>
-                <asp:CheckBox ID="CheckBoxChoice" runat="server" Text="(Active when checked)" Font-Bold="True" />
+                <asp:CheckBox ID="CheckBoxChoice" runat="server"
+                     Text="(active when checked)" Font-Bold="True" />
             </td>
         </tr>
         <tr>
             <td align="right">
-                <asp:Label ID="Label2" runat="server" Text="DisplayLabel:"></asp:Label>
+                <asp:Label ID="Label2" runat="server" Text="Display Label:"></asp:Label>
             </td>
             <td>
-                <asp:Label ID="DisplayReadOnly" runat="server"></asp:Label>
+                <asp:Label ID="DisplayReadOnly" runat="server" ></asp:Label>
             </td>
         </tr>
         <tr>
-            <td align="right" style="height: 22px">
+            <td align="right">
                 <asp:Label ID="Label4" runat="server" Text="View Choice Collection:"></asp:Label>
             </td>
-            <td style="height: 22px">
+            <td>
                 <asp:DropDownList ID="CollectionList" runat="server">
                 </asp:DropDownList>
+                &nbsp;&nbsp;
+                <asp:Button ID="ListSubmit" runat="server" Text="List Submit" OnClick="ListSubmit_Click" />
             </td>
-        </tr>
-        <tr>
-            <td style="height: 20px"></td>
-            <td style="height: 20px"></td>
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -57,8 +58,9 @@
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <asp:Label ID="OutputMessage" runat="server"></asp:Label></td>
+                <asp:Label ID="OutputMessage" runat="server" ></asp:Label></td>
+
         </tr>
     </table>
-
+    
 </asp:Content>
