@@ -62,7 +62,7 @@
                     </ul>--%>
 
                     <%-- installing a menu using a web.sitemap file
-                        a) requires a asp.Menu control which is linked to the menu data source control
+                        a) requires a asp.Menu control which is linked to the data source control
                         b) requires a site map data source which contains your menu--%>
                     <asp:Menu ID="SiteNav" runat="server"
                          DataSourceID="SiteMapDS" Orientation="Horizontal"
