@@ -25,7 +25,7 @@ namespace WebApp.SamplePages
             string fullname = FullName.Text;
             string emailaddress = EmailAddress.Text;
             string phonenumber = PhoneNumber.Text;
-            string fullorparttime = FullOrPartTime.SelectedValue;
+            string fullorparttime = FullOrPartTime.Text;
 
             //process the CheckBoxList
             //the control can be treated as a collection
