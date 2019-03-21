@@ -25,11 +25,21 @@ namespace WebApp.SamplePages
             //Validate the data coming in
             if (Page.IsValid)
             {
+                string firstName = FirstName.Text;
+                string lastName = LastName.Text;
+                string address1 = StreetAddress1.Text;
+                string address2 = StreetAddress2.Text;
+                string city = City.Text;
+                string province = Province.Text;
+                string postalCode = PostalCode.Text;
+                string eMail = EmailAddress.Text;
                 //Validate the user checking the terms
                 if (Terms.Checked)
                 {
                     //If yes: Create and load an entry, add to List, display List
-
+                    nCollection.Add(new NewCollection(firstName, lastName, address1, address2, city, province, postalCode, eMail));
+                    EntryCollection.DataSource = nCollection;
+                    EntryCollection.DataBind();
                 }
                 else
                 {

@@ -128,7 +128,7 @@
                 <asp:Label ID="Message" runat="server" ></asp:Label>
                 <br />
                 <hr style="width: 5px" />
-                <asp:GridView ID="nCollection" runat="server"></asp:GridView>
+                <asp:GridView ID="EntryCollection" runat="server"></asp:GridView>
             </div>
         </div>
     </div>
