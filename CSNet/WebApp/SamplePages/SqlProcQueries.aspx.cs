@@ -72,7 +72,10 @@ namespace WebApp.SamplePages
                         //No record: message to user
                         MessageLabel.Text = "No entries found for selected category";
                         //Optionally you might want to remove from display any old data so it is not confused with this message
-                        CategoryProductList.DataSource = null;
+                        //CategoryProductList.DataSource = null;
+
+                        //If you have an empty data template on the gridview and the datasource is empty of records (not null) then the message in the template will be displayed
+                        CategoryProductList.DataSource = datainfo;
                         CategoryProductList.DataBind();
                     }
                     else

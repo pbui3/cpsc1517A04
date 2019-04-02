@@ -122,5 +122,35 @@ namespace NorthwindSystem.BLL
                 return results.ToList();
             }
         }
+
+        #region Add, Update, Delete
+        //The add method will be used to insert a product instance into the database
+        //This method will receive an instance of product
+        //This method can optionally return the new identity pkey
+        public int Product_Add(Product item)
+        {
+            //The addition of the data will be done in a transaction block
+            using (var context = new NorthwindContext())
+            {
+                //Step 1: staging
+                //One adds the new instance to the appropriate DbSet<T>
+                //The data needs to be in an instance of <T>
+                //Staging does NOT place the record on the database
+                //If the pkey of <T> is an identity, the pkey value is not yet set
+                context.Products.Add(item);
+
+                //Step 2: Committing
+                //If the command to save your DbSet changes is NOT executed, the transaction fails and a rollback is performed
+                //If the command to save your DbSet changes is executed and fails, the transaction is rolledback and the appropriate errormessage is issued
+                //At this point all the entity validation is executed
+                //If the commad to save your DbSet changes is successful, then the data is in the database (unless the database finds an exception)
+                //At this pont you new identity pkey value is present in your <T> instance and can be retreived
+                context.SaveChanges();
+
+                //Optionally, you can return the new pkey value
+                return item.ProductID;
+            }
+        }
+        #endregion
     }
 }

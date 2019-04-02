@@ -64,13 +64,12 @@
                             </asp:TemplateField>
                             <asp:CommandField CausesValidation="False" SelectText="View" ShowSelectButton="True" />
                         </Columns>
-
-<HeaderStyle Width="10px"></HeaderStyle>
-
+                        <EmptyDataTemplate>
+                            No products on file for given category
+                        </EmptyDataTemplate>
                         <PagerSettings FirstPageText="Start" LastPageText="End" Mode="NumericFirstLast" PageButtonCount="5" />
                     </asp:GridView>
                 </td>
-
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -79,9 +78,6 @@
                 <td align="center">
                     <asp:Label ID="MessageLabel" runat="server" ></asp:Label>
                 </td>
-
             </tr>
         </table>
-
-
 </asp:Content>
