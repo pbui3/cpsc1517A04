@@ -16,6 +16,7 @@ namespace NorthwindSystem.BLL
     //Naming standard is <T>Controller, which represents a particular data class/SQL table
     public class ProductController
     {
+        #region Queries
         //Code method which will be called for processing
         //Method will be public
         //These methods will be referred to as the system interface
@@ -122,6 +123,7 @@ namespace NorthwindSystem.BLL
                 return results.ToList();
             }
         }
+        #endregion
 
         #region Add, Update, Delete
         //The add method will be used to insert a product instance into the database
@@ -149,6 +151,63 @@ namespace NorthwindSystem.BLL
 
                 //Optionally, you can return the new pkey value
                 return item.ProductID;
+            }
+        }
+
+        //Update
+        //This logic will mantain the entire database record when updating
+        //The result of the commit will return the number of rows affected
+        //Input will be an instance of <T> with the pkey value included
+        //Output will be rows affected
+        public int Product_Update(Product item)
+        {
+            using (var context = new NorthwindContext())
+            {
+                //Staging
+                //The entire record will be staged
+                //Optionally there may be additional attributes on your record that tracks when your update are done and/or who did the update
+                //These attributes are filled by the logic in this controller and should NOT be expected from the user
+                //item.LastModified = DateTime.Now;
+                context.Entry(item).State = System.Data.Entity.EntityState.Modified;
+
+                //Commit
+                //This will return the number of rows affected
+                return context.SaveChanges();
+                
+            }
+        }
+
+        //Delete
+        //Physical delete
+        //Logical delete
+        //Input: Pkey of the record
+        //Output: rows affected
+        public int Product_Delete(int productid)
+        {
+            using (var context = new NorthwindContext())
+            {
+                ////Physical delete
+                ////Removal of record from the database
+                ////Find record to remove
+                //var existing = context.Products.Find(productid);
+                ////Stage record for removal
+                //context.Products.Remove(existing);
+                ////Commit
+                //return context.SaveChanges();
+
+                //Logical delete
+                //This action will actually be an update
+                //Any attributes that are required for tracking needs to be handled
+                //The attributes that indictes the record is logically removed needs to be handled
+                //Find record to be "deleted"
+                var existing = context.Products.Find(productid);
+                //Adjust logical/tracking attributes
+                //existing.LastModified = DateTime.Now;
+                existing.Discontinued = true;
+                //Stage for update
+                context.Entry(existing).State = System.Data.Entity.EntityState.Modified;
+                //Commit
+                return context.SaveChanges();
             }
         }
         #endregion
