@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 using NorthwindSystem.DAL;
 using NorthwindSystem.Data;
 using System.Data.SqlClient;
+using System.ComponentModel;
 #endregion
 
 namespace NorthwindSystem.BLL
 {
+    [DataObject]
     //This class will be called from an external source, in our example, this source will be the web page
     //Naming standard is <T>Controller, which represents a particular data class/SQL table
     public class ProductController
@@ -59,6 +61,7 @@ namespace NorthwindSystem.BLL
         //SqlParameter takes 2 args
         //a) Procedure parameter name
         //b) Value to be passed
+        [DataObjectMethod(DataObjectMethodType.Select, false)]
         public List<Product> Product_GetByCategory(int categoryID)
         {
             using (var context = new NorthwindContext())
